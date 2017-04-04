@@ -96,7 +96,7 @@ public class Polynom {
         }
 
         for (int i = 0; i < cSums.length; i++) {
-            r.setCoeff(i,Algorithm.round(cSums[i],6));
+            r.setCoeff(i,Algorithm.round(cSums[i],3));
             //log("set koef: "+i+" "+cSums[i]);
         }
         log("Polynom: "+r.toStr());
@@ -107,18 +107,17 @@ public class Polynom {
 
     public static String testLagrangian(Polynom L,List<Pair<Double, Double>> input){
 
-        String res = "";
+        String res = "Перевірка";
         for (int i = input.size()-1; i >-1 ; i--) {
-
             double result = L.val(input.get(i).first);
-            String r = "test : L(x"+i+")="+result+"; must be="+input.get(i).second;
+            String r = "L(x"+(i+1)+")="+result+"; f(x"+(i+1)+")="+input.get(i).second;
             log(r);
-            res+=r+"\n.";
+            res+=r+"\n";
             if(result != input.get(i).second);
                 //return false;
         }
-        res+="\ncalc: "+L.toStr();
-        res+="\nmust: 0.01x^4−0.0423333x^3−0.15085x^2+0.834638x+0.962964";
+        res+="\nОтриманий поліном: "+L.toStr();
+        //res+="\nmust: 0.01x^4−0.0423333x^3−0.15085x^2+0.834638x+0.962964";
         //log(res);
         return res;
     }

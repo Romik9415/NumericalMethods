@@ -99,7 +99,7 @@
 </LinearLayout>
 </LinearLayout>
     <EditText
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textColor="#212121"
         android:id="@+id/output"
         android:layout_width="match_parent"
