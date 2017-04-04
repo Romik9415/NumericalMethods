@@ -54,18 +54,41 @@ public class Lab4 extends AppCompatActivity {
         polynomInput.add(new Pair<>(Double.valueOf(x5.getText().toString()),
                 Double.valueOf(y5.getText().toString())));
 
+
+        final double x[] = {
+                Double.valueOf(x1.getText().toString()),
+                Double.valueOf(x2.getText().toString()),
+                Double.valueOf(x3.getText().toString()),
+                Double.valueOf(x4.getText().toString()),
+                Double.valueOf(x5.getText().toString())
+        };
+
+        final double y[] = {
+                Double.valueOf(y1.getText().toString()),
+                Double.valueOf(y2.getText().toString()),
+                Double.valueOf(y3.getText().toString()),
+                Double.valueOf(y4.getText().toString()),
+                Double.valueOf(y5.getText().toString())
+        };
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 output.setText(Polynom.testLagrangian(
-                        Polynom.lagrangian(polynomInput),polynomInput));
+                        Polynom.lagrangian(polynomInput),polynomInput)
+                        +"\n"+
+                        Polynom.testNewtone(x,y,polynomInput));
+
                 Snackbar.make(view, "Calculation finished!", Snackbar.LENGTH_LONG)
                         .setAction("LIKE!", null).show();
+
             }
         });
 
     }
+
+
 
     private void initialize() {
         x1 = (EditText) findViewById(R.id.x1);
