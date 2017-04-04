@@ -1,11 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.romik9415.numericalmethods.Lab4"
-    tools:showIn="@layout/activity_lab4">
+    tools:showIn="@layout/activity_lab4"
+    android:orientation="vertical">
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/x1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/y1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/x2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/y2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content">
+    <EditText
 
-</android.support.constraint.ConstraintLayout>
+        android:id="@+id/x3"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/y3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/x4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/y4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/x5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/y5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+</LinearLayout>
+    <EditText
+        android:id="@+id/output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
