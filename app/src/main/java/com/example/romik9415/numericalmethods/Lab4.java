@@ -37,19 +37,12 @@ public class Lab4 extends AppCompatActivity {
         setSupportActionBar(toolbar);
         initialize();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setValues(0);
+        setXYParams(0); //
 
-        List<Pair<Double, Double>> polynomInput = new ArrayList<>();
+        final List<Pair<Double, Double>> polynomInput = new ArrayList<>();
         polynomInput.add(new Pair<>(Double.valueOf(x1.getText().toString()),
                 Double.valueOf(y1.getText().toString())));
         polynomInput.add(new Pair<>(Double.valueOf(x2.getText().toString()),
@@ -61,14 +54,16 @@ public class Lab4 extends AppCompatActivity {
         polynomInput.add(new Pair<>(Double.valueOf(x5.getText().toString()),
                 Double.valueOf(y5.getText().toString())));
 
-        output.setText(Polynom.testLagrangian(Polynom.lagrangian(polynomInput),polynomInput));
-        Polynom p = new Polynom();
-        p.setCoeff(0,0.962964);
-        p.setCoeff(1,0.834638);
-        p.setCoeff(2,0.15085);
-        p.setCoeff(3,0.0423333);
-        p.setCoeff(4,0.01);
-        //output.setText(Polynom.testLagrangian(p,polynomInput));
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                output.setText(Polynom.testLagrangian(
+                        Polynom.lagrangian(polynomInput),polynomInput));
+                Snackbar.make(view, "Calculation finished!", Snackbar.LENGTH_LONG)
+                        .setAction("LIKE!", null).show();
+            }
+        });
 
     }
 
@@ -87,7 +82,7 @@ public class Lab4 extends AppCompatActivity {
         output= (EditText) findViewById(R.id.output);
     }
 
-    private void setValues(int mikeRomanOrAndrew012) {
+    private void setXYParams(int mikeRomanOrAndrew012) {
         switch (mikeRomanOrAndrew012){
             case 0://mike
                 //(0.5,1.337904) (0.6,1.401593) (0.7,1.461175) (0.8, 1.516552) (0.9, 1.567650)
