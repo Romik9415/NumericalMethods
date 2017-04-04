@@ -61,8 +61,14 @@ public class Lab4 extends AppCompatActivity {
         polynomInput.add(new Pair<>(Double.valueOf(x5.getText().toString()),
                 Double.valueOf(y5.getText().toString())));
 
-        output.setText(Polynom.lagrangian(polynomInput)
-                .testLagrangian(polynomInput));
+        output.setText(Polynom.testLagrangian(Polynom.lagrangian(polynomInput),polynomInput));
+        Polynom p = new Polynom();
+        p.setCoeff(0,0.962964);
+        p.setCoeff(1,0.834638);
+        p.setCoeff(2,0.15085);
+        p.setCoeff(3,0.0423333);
+        p.setCoeff(4,0.01);
+        //output.setText(Polynom.testLagrangian(p,polynomInput));
 
     }
 

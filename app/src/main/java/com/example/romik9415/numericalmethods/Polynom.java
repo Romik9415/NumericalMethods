@@ -29,7 +29,14 @@ public class Polynom {
     public String toStr(){
         String s = "";
         for (int i = elements.keySet().size()-1; i >-1; i--) {
-            s+=(elements.get(i)>0?"+":"")+elements.get(i)+"*x^"+i;
+            s+=(elements.get(i)>0?" +":" ")+elements.get(i)+"*x^"+i;
+        }
+        return s;
+    }
+    public static String toStr(Polynom p){
+        String s = "";
+        for (int i = p.elements.keySet().size()-1; i >-1; i--) {
+            s+=(p.elements.get(i)>0?"+":"")+p.elements.get(i)+"*x^"+i;
         }
         return s;
     }
@@ -51,7 +58,6 @@ public class Polynom {
                 // - x*x2*x3*x4 + x1*x2*x3*x4
                 //polynom  x^4 - x^3*x1 - x^3*x2 - x^3*x*x^4 - x^3*x1 - x^3*x2 - x^3*x3 - x^3*x4 + x^2*x1*x2 + x^2*x1*x3 + x^2*x1*x4   + x^2*x2*x3 + x^2*x2*x4 + x^2*x3*x4 - x*x1*x2*x3 - x*x1*x2*x4 - x*x1*x3*x4
 
-
                 int sign = getSignFromStr(muls);
                 int polynomPowerMember = getZeroCount(muls);
                 double mp = 1;
@@ -60,28 +66,30 @@ public class Polynom {
                         ch++;
                     //log("bin char "+ch);
                     if(muls.charAt(j) == '1'){
-                        mp *= input.get(ch).second;
-                        log("() #"+ch+" : mp* ="+input.get(ch).second);
+                        mp *= input.get(ch).first;
+                        log("() #"+ch+" : mp* ="+input.get(ch).first);
                     }
                 }
 
-                log("^ #"+polynomPowerMember+" : +="+sign*mp);
-                c[polynomPowerMember]+=sign*mp;
-                //log("MP pos: "+binStrIdx+"\n\n\n");
+                c[polynomPowerMember]+=sign * mp;
+                log("MPF @"+polynomPowerMember+" = "+sign*mp+" || "+c[polynomPowerMember]+" |yi= "+input.get(addIdx).second+"\n|\n|\n|");
                 //add to cSums
             }
+
 
             double divider = 1;
             for (int dIdx = 0; dIdx < input.size(); dIdx++) {
                 if(addIdx == dIdx)
                     continue;
                 divider *= input.get(addIdx).first - input.get(dIdx).first;
-                //log("divider unit "+addIdx+" "+(input.get(addIdx).first - input.get(dIdx).first));
+                log("divider  "+dIdx);
             }
             for (int celem = 0; celem < c.length; celem++) {
-                cSums[celem] += c[celem]/divider;
-                log(cSums[celem]+" added:"+c[celem]+ " "+Arrays.toString(c));
+                cSums[celem] += c[celem]/(divider/ input.get(addIdx).second);
+                //log(cSums[celem]+" added:"+c[celem]);
             }
+            log("divider for"+addIdx+" = "+divider);
+            log(" cSums:"+Arrays.toString(cSums));
 
             log("()()()() end --------------------------------------------------------\n\n\n");
 
@@ -89,15 +97,15 @@ public class Polynom {
 
         for (int i = 0; i < cSums.length; i++) {
             r.setCoeff(i,Algorithm.round(cSums[i],6));
-            log("fill: "+i+" "+cSums[i]);
+            //log("set koef: "+i+" "+cSums[i]);
         }
+        log("Polynom: "+r.toStr());
         //fill polynom
 
         return r;
     }
 
-    public String testLagrangian(List<Pair<Double, Double>> input){
-        Polynom L = lagrangian(input);
+    public static String testLagrangian(Polynom L,List<Pair<Double, Double>> input){
 
         String res = "";
         for (int i = input.size()-1; i >-1 ; i--) {
@@ -105,13 +113,13 @@ public class Polynom {
             double result = L.val(input.get(i).first);
             String r = "test : L(x"+i+")="+result+"; must be="+input.get(i).second;
             log(r);
-            res+=r+"\n";
+            res+=r+"\n.";
             if(result != input.get(i).second);
                 //return false;
         }
-        log(toStr());
-        res+="\ncalc: "+toStr();
+        res+="\ncalc: "+L.toStr();
         res+="\nmust: 0.01x^4−0.0423333x^3−0.15085x^2+0.834638x+0.962964";
+        //log(res);
         return res;
     }
     private static int getSignFromStr(String muls) {
@@ -120,7 +128,7 @@ public class Polynom {
             if(muls.charAt(i) == '1')
                 count++;
         }
-        log("sign: "+(count%2==0?1:-1));
+        //log("sign: "+(count%2==0?1:-1));
 
         return count%2==0?1:-1;
     }
