@@ -10,6 +10,7 @@
     tools:showIn="@layout/activity_lab4"
     android:orientation="vertical">
 <LinearLayout
+    android:background="#304ffe"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -19,10 +20,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content">
         <EditText
+            android:textColor="@color/white"
             android:id="@+id/x1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+
+            android:textColor="@color/white"
             android:id="@+id/y1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -33,10 +37,12 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content">
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/x2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/y2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -48,11 +54,13 @@
     android:layout_height="wrap_content">
     <EditText
 
+        android:textColor="@color/white"
         android:id="@+id/x3"
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content" />
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/y3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -63,10 +71,12 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content">
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/x4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/y4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -77,16 +87,20 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content">
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/x5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/y5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
 </LinearLayout>
     <EditText
+        android:textSize="14sp"
+        android:textColor="#212121"
         android:id="@+id/output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
