@@ -98,7 +98,7 @@ public class Polynom {
         }
 
         for (int i = 0; i < cSums.length; i++) {
-            r.setCoeff(i, Algorithm.round(cSums[i], 2));
+            r.setCoeff(i, Algorithm.round(cSums[i], 6));
             //log("set koef: "+i+" "+cSums[i]);
         }
         log("Polynom: " + r.toStr());
@@ -112,7 +112,7 @@ public class Polynom {
         String res = "Перевірка:\n\n";
         for (int i = input.size() - 1; i > -1; i--) {
             double result = L.val(input.get(i).first);
-            String r = "L(x" + (i + 1) + ")=" + result + "; f(x" + (i + 1) + ")=" + input.get(i).second;
+            String r = "L(x" + (i + 1) + ")=" + Algorithm.round(result,6) + "; f(x" + (i + 1) + ")=" + input.get(i).second;
             log(r);
             res += r + "\n";
             if (result != input.get(i).second) ;

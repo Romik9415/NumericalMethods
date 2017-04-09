@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,100 +8,120 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.romik9415.numericalmethods.Lab4"
     tools:showIn="@layout/activity_lab4"
-    android:orientation="vertical">
-<LinearLayout
-    android:background="#304ffe"
-    android:orientation="horizontal"
+    xmlns:ap="http://schemas.android.com/apk/res-auto">
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:layout_width="0dp"
+        android:background="#304ffe"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
-            android:textColor="@color/white"
-            android:id="@+id/x1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/x1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
 
-            android:textColor="@color/white"
-            android:id="@+id/y1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-    android:orientation="vertical"
-    android:layout_weight="1"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content">
-    <EditText
-        android:textColor="@color/white"
-        android:id="@+id/x2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:textColor="@color/white"
-        android:id="@+id/y2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-    android:orientation="vertical"
-    android:layout_weight="1"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content">
-    <EditText
+                android:textColor="@color/white"
+                android:id="@+id/y1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/x2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/y2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <EditText
 
-        android:textColor="@color/white"
-        android:id="@+id/x3"
-        android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:id="@+id/x3"
+                android:layout_width="match_parent"
 
-        android:layout_height="wrap_content" />
-    <EditText
-        android:textColor="@color/white"
-        android:id="@+id/y3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/y3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/x4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/y4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/x5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/y5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-    android:orientation="vertical"
-    android:layout_weight="1"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content">
-    <EditText
-        android:textColor="@color/white"
-        android:id="@+id/x4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:textColor="@color/white"
-        android:id="@+id/y4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-    android:orientation="vertical"
-    android:layout_weight="1"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content">
-    <EditText
-        android:textColor="@color/white"
-        android:id="@+id/x5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:textColor="@color/white"
-        android:id="@+id/y5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
-</LinearLayout>
     <EditText
         android:textSize="18sp"
         android:textColor="#212121"
         android:id="@+id/output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <com.androidplot.xy.XYPlot
+        style="@style/APDefacto.Light"
+        android:id="@+id/plot"
+        android:layout_width="match_parent"
+        android:layout_height="600px"
+        ap:title="A Simple XY Plot"
+        ap:rangeTitle="range"
+        ap:domainTitle="domain"
+        ap:lineLabels="left|bottom"
+        ap:lineLabelRotationBottom="-45"/>
 </LinearLayout>
+
+</FrameLayout>
+</ScrollView>
