@@ -111,16 +111,11 @@
         android:id="@+id/output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <com.androidplot.xy.XYPlot
-        style="@style/APDefacto.Light"
-        android:id="@+id/plot"
+    <com.jjoe64.graphview.GraphView
+        android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
-        android:layout_height="600px"
-        ap:title="A Simple XY Plot"
-        ap:rangeTitle="range"
-        ap:domainTitle="domain"
-        ap:lineLabels="left|bottom"
-        ap:lineLabelRotationBottom="-45"/>
+        android:layout_height="400dip"
+        android:id="@+id/graph" />
 </LinearLayout>
 
 </FrameLayout>

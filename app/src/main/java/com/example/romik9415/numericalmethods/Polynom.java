@@ -110,7 +110,7 @@ public class Polynom {
     public static String testLagrangian(Polynom L, List<Pair<Double, Double>> input) {
 
         String res = "Перевірка:\n\n";
-        for (int i = input.size() - 1; i > -1; i--) {
+        for (int i = 0; i < input.size(); i++) {
             double result = L.val(input.get(i).first);
             String r = "L(x" + (i + 1) + ")=" + Algorithm.round(result,6) + "; f(x" + (i + 1) + ")=" + input.get(i).second;
             log(r);
@@ -151,26 +151,99 @@ public class Polynom {
 
     //-----------------------N---------------------------
 
-    public static Polynom newtonian(ArrayList<HashMap.Entry<Double, Double>> input) {
+    protected static double[] computeDividedDifference(final double x[], final double y[]) throws Exception {
+        //PolynomialFunctionLagrangeForm.verifyInterpolationArray(x, y);
 
-        /*
-        * def newtone(X, Y, x2):
-    for i in range(len(X)):
-        j = len(X)
-        while(i > j):
-            Y[i] = (Y[i] - Y[i - 1]) / (X[i] - X[i - j - 1])
-            j -= 1
-    suma = 0.0
-    for i in range(len(X), -1, -1):
-        mult = 1.0
-        for j in range(0, i):
-            mult *= (x2 - X[j])
-        mult *= Y[j]
-        suma += mult
+        final double[] divdiff = y.clone(); // initialization
 
-    return suma*/
-        return new Polynom();
+        final int n = x.length;
+        final double[] a = new double [n];
+        a[0] = divdiff[0];
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < n-i; j++) {
+                final double denominator = x[j+i] - x[j];
+                if (denominator == 0.0) {
+                    // This happens only when two abscissas are identical.
+                    throw new Exception("denominator == 0");
+                }
+                divdiff[j] = (divdiff[j+1] - divdiff[j]) / denominator;
+            }
+            a[i] = divdiff[0];
+        }
+
+        return a;
     }
+
+    public static Polynom newtonian(double[] xvalues, double[] y) throws Exception {
+
+        double[] diffs = computeDividedDifference(xvalues,y);
+        //double[] xvalues = {1.0, 2.0, 3.0};
+        //double[] diffs = {1.0, 7.0, 6.0};
+
+        // Initialize result array
+        double[] result = new double[xvalues.length];
+        for (int i = 0; i < xvalues.length; ++i) {
+            result[i] = 0.0;
+        }
+
+        for (int i = 0; i < xvalues.length; ++i) {
+            // 'poly' has a degree 'i'. We use 'i - 1' because only terms
+            // from 0 to 'i - 1' are used
+            double[] poly = getPoly(xvalues, i - 1);
+
+            // Now add to result, do not forget to multiply by the divided
+            // difference !
+            for (int j = 0; j < poly.length; ++j) {
+                result[j] += poly[j] * diffs[i];
+            }
+        }
+
+
+        Polynom p =  new Polynom();
+        for (int i = result.length-1; i >= 0; i--) {
+            p.setCoeff(i,Algorithm.round(result[i],6));
+            Log.d("C_POL","Coef for x^" + i + " is: " + result[i]);
+        }
+        return p;
+    }
+
+    public static double[] getPoly(double[] values, int i) {
+        // Start poly: 1.0, neutral value for multiplication
+        double[] coefs = {1.0};
+
+        // Accumulate values of products
+        for (int j = 0; j <= i; ++j) {
+            // 'coefsLocal' represent polynom of 1st degree (x - values[j])
+            double[] coefsLocal = {-values[j], 1.0};
+            coefs = getPolyProduct(coefs, coefsLocal);
+        }
+
+        return coefs;
+    }
+
+    public static double[] getPolyProduct(double[] coefs1, double[] coefs2) {
+        // Get lengths and degree
+        int s1 = coefs1.length - 1;
+        int s2 = coefs2.length - 1;
+        int degree = s1 + s2;
+
+        // Initialize polynom resulting from product, with null values
+        double[] coefsProduct = new double[degree + 1];
+        for (int k = 0; k <= degree; ++k) {
+            coefsProduct[k] = 0.0;
+        }
+
+        // Compute products
+        for (int i = 0; i <= s1; ++i)   {
+            for (int j = 0; j <= s2; ++j)   {
+                coefsProduct[i + j] += coefs1[i] * coefs2[j];
+            }
+        }
+        return coefsProduct;
+    }
+
+
+
 
 
     public static String testNewtone(double[] x, double[] y, List<Pair<Double, Double>> input) {
@@ -178,6 +251,15 @@ public class Polynom {
         for (int i = 0; i < input.size(); i++) {
             double res = newtone(x, y, input.get(i).first);
             s += "N(" + input.get(i).first + ")=" + res + "\n";
+        }
+        return s;
+    }
+
+    public static String testNewtone2(Polynom N,List<Pair<Double, Double>> input) {
+        String s = "Перевірка (Поліном Н'ютона)\n\n";
+        for (int i = 0; i < input.size(); i++) {
+            double res = N.val(input.get(i).first);
+            s += "N(" + input.get(i).first + ")=" + Algorithm.round(res,6) + "\n";
         }
         return s;
     }

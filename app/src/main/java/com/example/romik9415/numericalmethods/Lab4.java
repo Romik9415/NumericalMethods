@@ -1,28 +1,22 @@
 package com.example.romik9415.numericalmethods;
 
+import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 
-import com.androidplot.util.PixelUtils;
-import com.androidplot.xy.CatmullRomInterpolator;
-import com.androidplot.xy.LineAndPointFormatter;
-import com.androidplot.xy.SimpleXYSeries;
-import com.androidplot.xy.XYGraphWidget;
-import com.androidplot.xy.XYPlot;
-import com.androidplot.xy.XYSeries;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.FieldPosition;
-import java.text.Format;
-import java.text.ParsePosition;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Lab4 extends AppCompatActivity {
@@ -39,10 +33,11 @@ public class Lab4 extends AppCompatActivity {
     EditText y4;
     EditText y5;
     EditText output;
-    XYPlot plot;
-    private int LENGTH = 20;
-    private float X_DELTA = 2f;
-
+    GraphView graph;
+    private float X_DELTA = .3f;
+    private int RIGHT_LIMIT = 5;
+    private int LEFT_LIMIT = -RIGHT_LIMIT;
+    private int LENGTH = 100000;
 
 
     @Override
@@ -87,45 +82,57 @@ public class Lab4 extends AppCompatActivity {
                 Double.valueOf(y5.getText().toString())
         };
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                output.setText(Polynom.testLagrangian(
-                        Polynom.lagrangian(polynomInput),polynomInput)
-                        +"\n"+
-                        Polynom.testNewtone(x,y,polynomInput));
 
-                Snackbar.make(view, "Calculation finished!", Snackbar.LENGTH_LONG)
-                        .setAction("LIKE!", null).show();
-                drawOnPlot(Polynom.lagrangian(polynomInput));
+                try {
+
+                    Polynom N = Polynom.newtonian(x,y);
+                    output.setText(
+                        Polynom.testLagrangian(Polynom.lagrangian(polynomInput), polynomInput)
+                        + "\n" +
+                        Polynom.testNewtone2(N, polynomInput)
+                        + "\n" +
+                        Polynom.newtonian(x,y).toStr()
+                    );
+
+                drawOnPlot(Polynom.lagrangian(polynomInput), N);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         });
 
-    }
+        //drawOnPlot(Polynom.lagrangian(polynomInput));
 
+    }
 
 
     private void initialize() {
         x1 = (EditText) findViewById(R.id.x1);
-        x2= (EditText) findViewById(R.id.x2);
-        x3= (EditText) findViewById(R.id.x3);
-        x4= (EditText) findViewById(R.id.x4);
-        x5= (EditText) findViewById(R.id.x5);
+        x2 = (EditText) findViewById(R.id.x2);
+        x3 = (EditText) findViewById(R.id.x3);
+        x4 = (EditText) findViewById(R.id.x4);
+        x5 = (EditText) findViewById(R.id.x5);
 
-        y1= (EditText) findViewById(R.id.y1);
-        y2= (EditText) findViewById(R.id.y2);
-        y3= (EditText) findViewById(R.id.y3);
-        y4= (EditText) findViewById(R.id.y4);
-        y5= (EditText) findViewById(R.id.y5);
-        output= (EditText) findViewById(R.id.output);
+        y1 = (EditText) findViewById(R.id.y1);
+        y2 = (EditText) findViewById(R.id.y2);
+        y3 = (EditText) findViewById(R.id.y3);
+        y4 = (EditText) findViewById(R.id.y4);
+        y5 = (EditText) findViewById(R.id.y5);
+        output = (EditText) findViewById(R.id.output);
 
-        plot = (XYPlot) findViewById(R.id.plot);
+        graph = (GraphView) findViewById(R.id.graph);
     }
 
     private void setXYParams(int mikeRomanOrAndrew012) {
-        switch (mikeRomanOrAndrew012){
+        switch (mikeRomanOrAndrew012) {
             case 0://mike
                 //(0.5,1.337904) (0.6,1.401593) (0.7,1.461175) (0.8, 1.516552) (0.9, 1.567650)
                 //f(x)=0.01x^4−0.0423333x^3−0.15085x^2+0.834638x+0.962964
@@ -153,12 +160,14 @@ public class Lab4 extends AppCompatActivity {
             default:
         }
     }
-    private void drawOnPlot(Polynom lagrangian){
-        // create a couple arrays of y-values to plot:
-        final Number[] domainLabels = new Number[LENGTH];
-        Number[] series1Numbers = new Number[LENGTH];
-        Number[] series2Numbers = new Number[LENGTH];
 
+    private void drawOnPlot(Polynom lagrangian, Polynom newtonian) {
+        // create a couple arrays of y-values to plot:
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>();
+
+        /*
         final double x[] = {
                 Double.valueOf(x1.getText().toString()),
                 Double.valueOf(x2.getText().toString()),
@@ -173,62 +182,28 @@ public class Lab4 extends AppCompatActivity {
                 Double.valueOf(y4.getText().toString()),
                 Double.valueOf(y5.getText().toString())
         };
+*/
 
-
-
-        double  xi=-5;
-        for(int pos=0;pos<LENGTH;pos++){
-            series1Numbers[pos]=lagrangian.val(xi);
-            series2Numbers[pos]=Polynom.newtone(x,y,xi);
-            xi+=X_DELTA;
+        double xi = LEFT_LIMIT;
+        for (int pos = 0; pos < LENGTH; pos++) {
+            series.appendData(new DataPoint(xi, lagrangian.val(xi)), true, LENGTH);
+            series2.appendData(new DataPoint(xi, newtonian.val(xi)), true, LENGTH);
+            xi += X_DELTA;
         }
 
+        series2.setColor(Color.YELLOW);
+        series.setColor(Color.BLUE);
+        series2.setAnimated(true);
 
-        // turn the above arrays into XYSeries':
-        // (Y_VALS_ONLY means use the element index as the x value)
-        XYSeries series1 = new SimpleXYSeries(
-                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series1");
-        XYSeries series2 = new SimpleXYSeries(
-                Arrays.asList(series2Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series2");
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(15);
+        paint.setPathEffect(new DashPathEffect(new float[]{16, 0}, 0));
+        series2.setCustomPaint(paint);
 
-        // create formatters to use for drawing a series using LineAndPointRenderer
-        // and configure them from xml:
-        LineAndPointFormatter series1Format =
-                new LineAndPointFormatter(this, R.xml.line_point_formatter_with_labels);
-
-        LineAndPointFormatter series2Format =
-                new LineAndPointFormatter(this, R.xml.line_point_formatter_with_labels_2);
-
-        // add an "dash" effect to the series2 line:
-        series2Format.getLinePaint().setPathEffect(new DashPathEffect(new float[] {
-                // always use DP when specifying pixel sizes, to keep things consistent across devices:
-                PixelUtils.dpToPix(1),
-                PixelUtils.dpToPix(1)}, 0)
-        );
-
-        // just for fun, add some smoothing to the lines:
-        // see: http://androidplot.com/smooth-curves-and-androidplot/
-        series1Format.setInterpolationParams(
-                new CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal));
-
-        series2Format.setInterpolationParams(
-                new CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal));
-
-        // add a new series' to the xyplot:
-        plot.addSeries(series1, series1Format);
-        plot.addSeries(series2, series2Format);
-        plot.invalidate();
-
-        plot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).setFormat(new Format() {
-            @Override
-            public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-                int i = Math.round(((Number) obj).floatValue());
-                return toAppendTo.append(domainLabels[i]);
-            }
-            @Override
-            public Object parseObject(String source, ParsePosition pos) {
-                return null;
-            }
-        });
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setScrollable(true);
+        graph.addSeries(series2);
+        graph.addSeries(series);
     }
 }
