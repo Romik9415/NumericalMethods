@@ -203,7 +203,7 @@ public class Lab4 extends AppCompatActivity {
 
         graph.getViewport().setScalable(true);
         graph.getViewport().setScrollable(true);
-        graph.addSeries(series2);
+        //graph.addSeries(series2);
         graph.addSeries(series);
     }
 }
