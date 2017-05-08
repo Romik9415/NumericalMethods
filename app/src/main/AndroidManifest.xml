@@ -38,6 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.romik9415.numericalmethods.MainActivity" />
         </activity>
+        <activity
+            android:name=".Lab_10_RungeKutta"
+            android:label="@string/title_activity_lab_10__runge_kutta"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
