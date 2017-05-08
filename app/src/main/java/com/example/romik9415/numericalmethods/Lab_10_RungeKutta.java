@@ -31,7 +31,7 @@ public class Lab_10_RungeKutta extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int number;
-                number = 20;
+                number = 25;
                 //System.out.println("Result of Euler Method y = " + solveByEulerMethod(number));
                 System.out.println("Result of Runge-Kutta Method y = " + solveByRunge_KuttaMethod(number));
                 //Log.d("Result",String.valueOf(solveByRunge_KuttaMethod(number)));
@@ -43,7 +43,8 @@ public class Lab_10_RungeKutta extends AppCompatActivity {
     //
 
     public static double differentialFunction(double x, double y) {
-        return (1-x*x)/x*y;// TODO change to your formua
+        //return (1-x*x)/x*y;// TODO change to your formua
+        return y/(Math.tan(x));
     }
 
 

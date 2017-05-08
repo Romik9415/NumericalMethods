@@ -9,4 +9,5 @@
     <string name="title_activity_lab2">Lab2</string>
     <string name="title_activity_lab4">Lab4</string>
     <string name="title_activity_lab_10__runge_kutta">Lab_10_RungeKutta</string>
+    <string name="title_activity_lab9__eyler__picaro">Lab9_Eyler_Picaro</string>
 </resources>

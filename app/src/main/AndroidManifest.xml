@@ -41,6 +41,10 @@
         <activity
             android:name=".Lab_10_RungeKutta"
             android:label="@string/title_activity_lab_10__runge_kutta"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Lab9_Eyler_Picaro"
+            android:label="@string/title_activity_lab9__eyler__picaro"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
